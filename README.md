@@ -5,7 +5,7 @@
 
 # 运行
 
-`curl -fsSL https://raw.githubusercontent.com/afoim/free-node/refs/heads/main/shell/run.sh | bash`
+`curl -fsSL https://raw.githubusercontent.com/afoim/free-node/refs/heads/main/shell/run.sh | bash -s vless公益节点（名称可更改）`
 
 ## 手动提交节点示例CURL
 `curl --location 'https://vps-node.afo.im/add' \
