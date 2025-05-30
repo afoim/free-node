@@ -2,6 +2,9 @@
 
 set -e
 
+# 获取节点名称参数（默认为 vless-reality）
+NODE_NAME="${1:-vless-reality}"
+
 # 安装目录
 INSTALL_DIR="/usr/local/bin"
 CONFIG_DIR="/etc/sing-box"
@@ -97,7 +100,7 @@ EOF
   systemctl restart sing-box
 }
 
-# 开放端口（仅限使用 ufw/iptables）
+# 开放端口
 open_port() {
   if command -v ufw >/dev/null; then
     ufw allow $PORT/tcp
@@ -113,11 +116,13 @@ main() {
   create_service
   open_port
 
-  VLESS_URI="vless://$UUID@$(curl -s https://ipinfo.io/ip):$PORT?encryption=none&flow=&security=reality&sni=$SNI&fp=chrome&pbk=$PUBLIC_KEY&sid=$SHORT_ID&type=tcp#vless-reality"
+  IP=$(curl -s https://ipinfo.io/ip)
+  VLESS_URI="vless://$UUID@$IP:$PORT?encryption=none&flow=&security=reality&sni=$SNI&fp=chrome&pbk=$PUBLIC_KEY&sid=$SHORT_ID&type=tcp#${NODE_NAME}"
 
   echo -e "\n✅ 安装完成！以下是连接信息：\n"
+  echo "名称: $NODE_NAME"
   echo "协议: VLESS Reality"
-  echo "地址: $(curl -s https://ipinfo.io/ip)"
+  echo "地址: $IP"
   echo "端口: $PORT"
   echo "UUID: $UUID"
   echo "公钥: $PUBLIC_KEY"
