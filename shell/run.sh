@@ -2,9 +2,6 @@
 
 set -e
 
-# 获取节点名称参数（默认为 vless-reality）
-NODE_NAME="${1:-vless-reality}"
-
 # 安装目录
 INSTALL_DIR="/usr/local/bin"
 CONFIG_DIR="/etc/sing-box"
@@ -111,6 +108,9 @@ open_port() {
 
 # 主流程
 main() {
+  NODE_NAME="${1:-vless-reality}"
+
+
   install_singbox
   generate_config
   create_service
