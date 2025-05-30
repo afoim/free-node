@@ -132,3 +132,4 @@ curl --location 'https://vps-node.afo.im/add' \
      --data "$VLESS_URI"
 
 echo -e "\n[+] 发送完成！"
+}
