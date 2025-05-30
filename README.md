@@ -7,6 +7,11 @@
 
 `curl -fsSL https://raw.githubusercontent.com/afoim/free-node/refs/heads/main/shell/run.sh | bash`
 
+## 手动提交节点示例CURL
+`curl --location 'https://vps-node.afo.im/add' \
+--header 'Content-Type: text/plain' \
+--data 'vless://你的链接'`
+
 # 卸载
 
 `curl -fsSL https://raw.githubusercontent.com/afoim/free-node/refs/heads/main/shell/del.sh | bash`
